@@ -4,10 +4,13 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "yarn run": "ts-node"
+    "solana": "ts-node ./src/data/solanaRpc.ts"
   },
   "devDependencies": {
     "ts-node": "^10.9.2",
     "typescript": "^5.9.2"
+  },
+  "dependencies": {
+    "@solana/web3.js": "^1.98.4"
   }
 }
