@@ -1,10 +1,14 @@
-import { Transaction } from "@solana/web3.js";
+import { EnrichedTransaction } from './Transaction';
+import { PluginAction } from './PluginAction';
 
-export interface Block {
-    blockTime: number | null;
-    parentSlot: number;
-    previousBlockhash: string;
-    ix: object;
-    bamOrderingProof: undefined;
-    plugins: [];
+export interface EnrichedBlock {
+  slot: number;
+  hash: string;
+  timestamp: number | null;
+  proposer: string;
+  transactionCount: number;
+  isBAM: boolean;
+  mevDetected: boolean;
+  transactions: EnrichedTransaction[];
+  pluginActions: PluginAction[];
 }

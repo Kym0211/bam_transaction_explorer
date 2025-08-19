@@ -1,6 +1,5 @@
 export interface PluginAction {
-    name: string;
-    actionType: string;
-    transactionIds: string[];
-    details?: any;
+  pluginName: string;
+  actionType: 'OracleUpdate' | 'PriorityCancel' | 'Unknown';
+  // Add more details later
 }

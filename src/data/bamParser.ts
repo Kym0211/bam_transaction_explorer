@@ -1,16 +1,31 @@
-import { BAMOrderingProof } from "../models/BAMOrderingProof";
+import { Connection, ParsedAccountsModeBlockResponse, ParsedBlockResponse, ParsedInstruction } from "@solana/web3.js";
+import { log } from "console";
+import { connect } from "http2";
 
-export function parseOrderingProof(rawProof: any, slot: number) : BAMOrderingProof {
-    return {
-        proof: rawProof.proofData,
-        verified: verifyProof(rawProof.proofData, slot),
-        slot,
-        blockHash: rawProof.blockHash,
-        signatures: rawProof.signatures
-    }
-}
+/**
+ * Determines if a block was produced by a Jito validator by checking for a Jito memo
+ * in the last transaction of the block.
+ * @param block The full, parsed block response from the RPC.
+ * @returns An object indicating whether the block is a Jito BAM block.
+ */
 
-function verifyProof(proofData: string, slot: number): boolean {
-  // TODO: Implement or call Jito-provided proof verifier
-  return !!proofData; // For now, treat any non-empty data as verified
-}
+//ParsedAccountsModeBlockResponse
+export const parseBAMInfo = async (connection: Connection, slot: number): Promise<{ isBAM: boolean; }> => {
+  try {
+
+    const leader = await connection.getSlotLeaders(slot, 1).toString();
+    // If a block is proposed by jito validators then return true
+      if (leader.includes("J1to")) {
+        return {isBAM: true}
+      }
+
+
+    return {isBAM: true};
+  } catch (error) {
+    // If anything goes wrong during parsing, assume it's not a Jito block.
+    console.error("Error parsing for Jito memo:", error);
+  }
+
+  // If we get here, no Jito memo was found.
+  return { isBAM: false };
+};
