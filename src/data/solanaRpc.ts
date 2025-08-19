@@ -1,21 +1,10 @@
 // import { RPC_URL, WSS_URL } from './../config/env';
-import { clusterApiUrl, Connection, PublicKey } from '@solana/web3.js';
+import { clusterApiUrl, Connection } from '@solana/web3.js';
 import { EnrichedBlock } from '../models/Block';
 import { addBlock } from '../db/inMemoryStore';
 import { parseBAMInfo } from './bamParser';
 import { detectMEV } from './mevDetector';
 
-// const RPC_URL = process.env.RPC_URL;
-// const WSS_URL = process.env.WSS_URL;
-const RPC_URL="https://devnet.helius-rpc.com/?api-key=7bb20abd-ffdb-4e81-a50b-59ebec40c6ce"
-const WSS_URL="wss://devnet.helius-rpc.com/?api-key=7bb20abd-ffdb-4e81-a50b-59ebec40c6ce"
-// console.log(process.env.RPC_URL);
-
-// const JITO_TIP_PROGRAM_ID = new PublicKey('J1T1o1G1V1L1L1L1L1L1L1L1L1L1L1L1L1L1L1L1');
-
-if (!RPC_URL) {
-  throw new Error('RPC_URL is not defined. Please set the RPC_URL environment variable.');
-}
 const connection = new Connection(clusterApiUrl("mainnet-beta"), {
     commitment: "confirmed"
 });
@@ -48,7 +37,7 @@ export const startWorker =async (slot: number) => {
         proposer: block.rewards?.[0]?.pubkey ?? 'Unknown',
         transactionCount: block.transactions.length,
         isBAM,
-        mevDetected: true,
+        mevDetected,
         transactions: [], // For MVP, we'll keep this simple
         pluginActions: [], // For MVP, we'll keep this simple
       };

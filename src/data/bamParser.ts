@@ -1,6 +1,4 @@
 import { Connection, ParsedAccountsModeBlockResponse, ParsedBlockResponse, ParsedInstruction } from "@solana/web3.js";
-import { log } from "console";
-import { connect } from "http2";
 
 /**
  * Determines if a block was produced by a Jito validator by checking for a Jito memo
