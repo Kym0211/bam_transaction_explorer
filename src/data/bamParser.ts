@@ -23,7 +23,5 @@ export const parseBAMInfo = async (connection: Connection, slot: number): Promis
     // If anything goes wrong during parsing, assume it's not a Jito block.
     console.error("Error parsing for Jito memo:", error);
   }
-
-  // If we get here, no Jito memo was found.
   return { isBAM: false };
 };

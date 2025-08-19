@@ -4,7 +4,6 @@ import { getBlocks } from '../db/inMemoryStore';
 
 const app = express();
 
-// Enable CORS for frontend access
 app.use(cors());
 
 // Define the API route

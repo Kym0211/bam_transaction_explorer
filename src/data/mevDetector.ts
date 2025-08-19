@@ -29,24 +29,6 @@ export const detectMEV = (block: ParsedAccountsModeBlockResponse): { mevDetected
         }
       })
     })
-    // Iterate over each transaction in the block.
-    // for (const tx of block.transactions) {
-    //   if (!tx.transaction || !tx.transaction.message) {
-    //     continue;
-    //   }
-
-    //   // Check each instruction within the transaction.
-    //   for (const instruction of tx.transaction.message.instructions) {
-    //     // If the instruction's programId is in our set of known DEXs,
-    //     // we can flag this block as potentially containing MEV.
-    //     if (KNOWN_DEX_PROGRAM_IDS.has(instruction.programId.toBase58())) {
-    //       // For a more advanced detector, you would start analyzing transaction
-    //       // sequences here to find specific patterns like sandwich attacks.
-    //       // But for an MVP, simply detecting DEX activity is a great start.
-    //       return { mevDetected: true };
-    //     }
-    //   }
-    // }
   } catch (error) {
     // If parsing fails, assume no MEV.
     log("error: ", error)

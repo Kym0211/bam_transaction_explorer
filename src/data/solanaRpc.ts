@@ -15,7 +15,7 @@ export const startWorker =async (slot: number) => {
       const block = await connection.getParsedBlock(slot, {
         // encoding: 'jsonParsed',
         maxSupportedTransactionVersion: 0,
-        transactionDetails: "accounts", // Ensures ParsedBlockResponse is returned
+        transactionDetails: "accounts", 
       });
 
       if (!block) return;
@@ -25,11 +25,10 @@ export const startWorker =async (slot: number) => {
         console.log("jito block");
       }
 
-      // Use our parsers to enrich the data
       const { isBAM } = await parseBAMInfo(connection, slot);
       const { mevDetected } = detectMEV(block);
 
-      // Create our final, structured block object
+      
       const enrichedBlock: EnrichedBlock = {
         slot: slot,
         hash: block.blockhash,
